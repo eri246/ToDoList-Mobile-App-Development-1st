@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Daily Planner</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      background: #d9d9d9;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      padding: 15px;
+      width: 250px;
+    }
+    .header {
+      background-color: orange;
+      color: white;
+      font-weight: bold;
+      padding: 8px;
+      text-align: center;
+      border-radius: 6px 6px 0 0;
+    }
+    .section-title {
+      color: darkred;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    button {
+      background: #e06666;
+      color: white;
+      border: none;
+      padding: 8px;
+      margin: 5px 2px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    input {
+      width: 90%;
+      padding: 5px;
+      margin: 5px 0;
+    }
+    ul {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="header">Daily Planner</div>
+  <div class="section-title">To Do List</div>
+  <ul>
+    <li>Use this app to keep track of your daily tasks</li>
+    <li>Track group progress</li>
+    <li>Set timed reminders</li>
+  </ul>
+  <button onclick="showSection('myTasks')">Continue</button>
+</div>
+
+<div class="card" id="myTasks" style="display:none;">
+  <div class="header">Daily Planner</div>
+  <div class="section-title">My To Do List</div>
+  <input type="text" id="personalTask" placeholder="Enter a new task">
+  <button onclick="addTask('personal')">ADD Task</button>
+  <button onclick="showSection('users')">Change User</button>
+  <button onclick="showSection('groupTasks')">Global To Do</button>
+  <button onclick="showSection('reminders')">Set Alert</button>
+  <ul id="personalList"></ul>
+</div>
+
+<div class="card" id="groupTasks" style="display:none;">
+  <div class="header">Daily Planner</div>
+  <div class="section-title">Group To Do List</div>
+  <input type="text" id="groupTask" placeholder="Enter a new task">
+  <button onclick="addTask('group')">ADD Task</button>
+  <button onclick="showSection('users')">Change User</button>
+  <button onclick="showSection('myTasks')">My To Do</button>
+  <ul id="groupList"></ul>
+</div>
+
+<div class="card" id="users" style="display:none;">
+  <div class="header">Daily Planner</div>
+  <div class="section-title">Users</div>
+  <p>Current User: <span id="currentUser">John Doe</span></p>
+  <input type="text" id="newUserName" placeholder="Enter a new name">
+  <input type="text" id="newUserImg" placeholder="Enter an image link">
+  <button onclick="addUser()">ADD User</button>
+  <button onclick="showSection('myTasks')">Global To Do</button>
+</div>
+
+<div class="card" id="reminders" style="display:none;">
+  <div class="header">Daily Planner</div>
+  <div class="section-title">My To Do List - Notification</div>
+  <p>Please select when you would like to be reminded</p>
+  <input type="datetime-local" id="reminderTime">
+  <input type="text" id="reminderTask" placeholder="Enter a new task">
+  <button onclick="addReminder()">ADD Task</button>
+</div>
+
+<script>
+  function showSection(id) {
+    document.querySelectorAll('.card').forEach(card => card.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+  }
+
+  function addTask(type) {
+    const inputId = type === 'personal' ? 'personalTask' : 'groupTask';
+    const listId = type === 'personal' ? 'personalList' : 'groupList';
+    const task = document.getElementById(inputId).value.trim();
+    if (task) {
+      const li = document.createElement('li');
+      li.textContent = task;
+      document.getElementById(listId).appendChild(li);
+      document.getElementById(inputId).value = '';
+    }
+  }
+
+  function addUser() {
+    const name = document.getElementById('newUserName').value.trim();
+    if (name) {
+      document.getElementById('currentUser').textContent = name;
+      alert('New user added!');
+    }
+  }
+
+  function addReminder() {
+    const task = document.getElementById('reminderTask').value.trim();
+    const time = document.getElementById('reminderTime').value;
+    if (task && time) {
+      alert(`Reminder set for "${task}" at ${new Date(time).toLocaleString()}`);
+      document.getElementById('reminderTask').value = '';
+    }
+  }
+</script>
+
+</body>
+</html>
