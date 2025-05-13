@@ -1,57 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Daily Planner</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      padding: 20px;
-    }
-    .card {
-      background: #d9d9d9;
-      border: 2px solid #ccc;
-      border-radius: 10px;
-      padding: 15px;
-      width: 250px;
-    }
-    .header {
-      background-color: orange;
-      color: white;
-      font-weight: bold;
-      padding: 8px;
-      text-align: center;
-      border-radius: 6px 6px 0 0;
-    }
-    .section-title {
-      color: darkred;
-      font-weight: bold;
-      margin: 10px 0;
-    }
-    button {
-      background: #e06666;
-      color: white;
-      border: none;
-      padding: 8px;
-      margin: 5px 2px;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-    input {
-      width: 90%;
-      padding: 5px;
-      margin: 5px 0;
-    }
-    ul {
-      list-style-type: disc;
-      padding-left: 20px;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -92,7 +44,7 @@
   <div class="section-title">Users</div>
   <p>Current User: <span id="currentUser">John Doe</span></p>
   <input type="text" id="newUserName" placeholder="Enter a new name">
-  <input type="text" id="newUserImg" placeholder="Enter an image link">
+  <input type="text" id="newUserImg" placeholder="Enter an image link (optional)">
   <button onclick="addUser()">ADD User</button>
   <button onclick="showSection('myTasks')">Global To Do</button>
 </div>
@@ -106,41 +58,6 @@
   <button onclick="addReminder()">ADD Task</button>
 </div>
 
-<script>
-  function showSection(id) {
-    document.querySelectorAll('.card').forEach(card => card.style.display = 'none');
-    document.getElementById(id).style.display = 'block';
-  }
-
-  function addTask(type) {
-    const inputId = type === 'personal' ? 'personalTask' : 'groupTask';
-    const listId = type === 'personal' ? 'personalList' : 'groupList';
-    const task = document.getElementById(inputId).value.trim();
-    if (task) {
-      const li = document.createElement('li');
-      li.textContent = task;
-      document.getElementById(listId).appendChild(li);
-      document.getElementById(inputId).value = '';
-    }
-  }
-
-  function addUser() {
-    const name = document.getElementById('newUserName').value.trim();
-    if (name) {
-      document.getElementById('currentUser').textContent = name;
-      alert('New user added!');
-    }
-  }
-
-  function addReminder() {
-    const task = document.getElementById('reminderTask').value.trim();
-    const time = document.getElementById('reminderTime').value;
-    if (task && time) {
-      alert(`Reminder set for "${task}" at ${new Date(time).toLocaleString()}`);
-      document.getElementById('reminderTask').value = '';
-    }
-  }
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
